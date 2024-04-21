@@ -35,25 +35,25 @@
    ```
 
 2. Запустите docker-compose:
- ```sh
+   ```sh
    docker-compose up -d
-```
+   ```
 
 3. В корневой папке запустите go mod tidy
-```sh
-    go mod tidy
-```
+   ```sh
+   go mod tidy
+   ```
 
 4. Последовательно запустите оркестратор и фронтенд
-```sh
-    go run orchestrator/cmd/app/main.go
-    go run frontend/cmd/main.go
-```
+   ```sh
+   go run orchestrator/cmd/app/main.go
+   go run frontend/cmd/main.go
+   ```
 
 5. Приложение готово к использованию и распологается на http://localhost:8000/html. Для запуска вычислительного ресурса используйте go run calculator/cmd/app/main.go. Вы можете запустить их сколько угодно!
-```sh
-    go run calculator/cmd/app/main.go
-```
+   ```sh
+   go run calculator/cmd/app/main.go
+   ```
 
 <!-- CONTACT -->
 ## Contact(Если возникли вопросы)
