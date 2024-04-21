@@ -1,0 +1,14 @@
+syntax = "proto3";
+package heartbeat;
+option go_package = "github.com/Uikola/distributedCalculator2/proto/expression";
+
+message CalculateRequest {
+  uint64 id = 1;
+  string expression = 2;
+}
+
+message CalculateResponse {}
+
+service ExpressionService {
+  rpc Calculate(CalculateRequest) returns (CalculateResponse);
+}
