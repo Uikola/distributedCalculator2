@@ -30,7 +30,7 @@
 
 1. Клонируйте репозиторий
    ```sh
-   git clone https://github.com/Uikola/distributedCalculator.git
+   git clone https://github.com/Uikola/distributedCalculator2.git
    ```
 
 2. Запустите docker-compose:
