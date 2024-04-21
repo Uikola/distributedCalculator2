@@ -1,0 +1,26 @@
+syntax = "proto3";
+package heartbeat;
+option go_package = "github.com/Uikola/distributedCalculator2/proto/heartbeat";
+
+message HeartbeatRequest {
+  string heartbeat = 1;
+}
+
+message HeartbeatResponse {
+  bool heartbeat = 1;
+  string name = 2;
+}
+
+message RegisterRequest {
+  string name = 1;
+}
+
+message RegisterResponse {
+  bool success = 1;
+  string address = 2;
+}
+
+service HeartbeatService {
+  rpc Heartbeat(HeartbeatRequest) returns (HeartbeatResponse);
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+}
