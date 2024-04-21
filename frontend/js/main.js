@@ -20,10 +20,8 @@ document.addEventListener('submit', function (event) {
                 return response.json();
             } else if (response.status === 400) {
                 errorMessage.textContent = 'Некорректное выражение';
-            } else if (response.status === 204) {
-                errorMessage.textContent = 'Все вычислительные ресурсы заняты';
             } else if (response.status === 500) {
-                errorMessage.textContent = 'Ошибка на сервере';
+                errorMessage.textContent = 'Ошибка на сервере или не хватает вычислительных ресурсов';
             } else {
                 errorMessage.textContent = 'Неизвестная ошибка';
             }
