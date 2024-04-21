@@ -1,0 +1,170 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+.container {
+    width: 400px;
+    margin: 100px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input {
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: red;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+}
+
+.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.nav li {
+    margin-right: 20px;
+}
+
+.nav li:last-child {
+    margin-right: 0;
+}
+
+.nav a {
+    text-decoration: none;
+    color: white;
+}
+
+.reg {
+    text-decoration: none;
+    color: black;
+}
+
+.header-right a {
+    text-decoration: none;
+    color: white;
+}
+
+.status-ok {
+    color: green;
+}
+
+.status-error {
+    color: red;
+}
+
+.status-in-progress {
+    color: rgb(128, 128, 128);
+}
+
+.resources {
+    margin: 50px auto; /* Центрирование по вертикали и горизонтали */
+    width: 80%; /* Ширина блока */
+}
+
+.resources h2 {
+    font-size: 24px;
+}
+
+#resourceList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#resourceList li {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.operations {
+    margin: 20px auto;
+    width: 80%;
+}
+
+.operations h2 {
+    text-align: center;
+}
+
+.operation-form {
+    margin: 20px auto;
+    width: 50%;
+}
+
+.operation-form h2 {
+    text-align: center;
+}
+
+.operation-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.operation-form input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.operation-form button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.operation-form button:hover {
+    background-color: #555;
+}
+
+#operationList {
+    margin: 0 auto; /* Устанавливаем автоматичесные отступы слева и справа */
+    width: fit-content; /* Ширина элемента соответствует его содержимому */
+    text-align: left; /* Выравнивание текста внутри элементов списка */
+}

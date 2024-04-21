@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главное меню</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<header class="header">
+    <div class="header-left">
+        <ul class="nav">
+            <li><a href="main.html">Главная</a></li>
+            <li><a href="cresources.html">Вычислительные мощности</a></li>
+            <li><a href="operations.html">Операции</a></li>
+        </ul>
+    </div>
+    <div class="header-right">
+        <button id="logoutButton">Выход</button>
+    </div>
+</header>
+
+<div class="container">
+    <h2>Форма создания выражения</h2>
+    <form id="expressionForm">
+        <label for="expression">Выражение:</label>
+        <input type="text" id="expression" name="expression" required>
+        <button type="submit">Создать</button>
+    </form>
+    <p id="errorMessage" class="error-message"></p>
+</div>
+
+<div class="container">
+    <h2>Список выражений</h2>
+    <ul id="expressionList">
+        <!-- Сюда будут добавляться выражения из JavaScript -->
+    </ul>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Меню операций</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<!-- Хедер -->
+<header class="header">
+  <div class="header-left">
+    <ul class="nav">
+      <li><a href="main.html">Главная</a></li>
+      <li><a href="cresources.html">Вычислительные мощности</a></li>
+      <li><a href="operations.html">Операции</a></li>
+    </ul>
+  </div>
+  <div class="header-right">
+    <button id="logoutButton">Выход</button>
+  </div>
+</header>
+
+<!-- Список операций -->
+<section class="operations">
+  <h2>Список операций</h2>
+  <ul id="operationList">
+    <!-- Операции будут добавляться сюда динамически -->
+  </ul>
+</section>
+
+<!-- Форма для изменения времени выполнения операции -->
+<section class="operation-form">
+  <h2>Изменить время выполнения операции</h2>
+  <form id="operationForm">
+    <label for="operation">Выберите операцию для изменения:</label>
+    <select id="operation" name="operation">
+      <!-- Опции операций будут добавлены с помощью JavaScript -->
+    </select>
+    <label for="time">Время выполнения (секунды):</label>
+    <input type="number" id="time" name="time" required>
+    <button type="submit">Изменить</button>
+  </form>
+  <p id="changeOperationMessage"></p>
+</section>
+
+<script src="../js/operations.js"></script>
+</body>
+</html>
