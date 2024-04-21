@@ -17,10 +17,9 @@
 
 - PostgresSQL
 - grpc
-- Golang
 - Chi router
 - Docker
-- Go(1.22.0)
+- Golang(1.22.0)
 
 <!-- GETTING STARTED -->
 ## Начало Работы
