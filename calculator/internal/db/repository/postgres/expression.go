@@ -3,9 +3,10 @@ package postgres
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/Uikola/distributedCalculator2/calculator/internal/entity"
 	"github.com/jmoiron/sqlx"
-	"time"
 )
 
 type ExpressionRepository struct {

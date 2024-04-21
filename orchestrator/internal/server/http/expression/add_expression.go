@@ -4,13 +4,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
+	"regexp"
+	"time"
+
 	"github.com/Knetic/govaluate"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/errorz"
 	"github.com/rs/zerolog/log"
-	"net/http"
-	"regexp"
-	"time"
 )
 
 func (h Handler) AddExpression(w http.ResponseWriter, r *http.Request) {

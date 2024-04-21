@@ -1,12 +1,13 @@
 package http
 
 import (
+	"net/http"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/server/http/cresource"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/server/http/expression"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/server/http/user"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
-	"net/http"
 )
 
 func NewServer(

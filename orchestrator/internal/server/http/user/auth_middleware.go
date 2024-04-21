@@ -3,9 +3,10 @@ package user
 import (
 	"context"
 	"encoding/json"
-	"github.com/rs/zerolog/log"
 	"net/http"
 	"strings"
+
+	"github.com/rs/zerolog/log"
 )
 
 func (h Handler) Auth(next http.Handler) http.Handler {

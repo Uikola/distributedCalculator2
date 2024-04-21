@@ -2,8 +2,9 @@ package cresource
 
 import (
 	"encoding/json"
-	"github.com/rs/zerolog/log"
 	"net/http"
+
+	"github.com/rs/zerolog/log"
 )
 
 func (h Handler) ListCResources(w http.ResponseWriter, r *http.Request) {

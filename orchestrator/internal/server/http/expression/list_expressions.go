@@ -3,9 +3,10 @@ package expression
 import (
 	"encoding/json"
 	"errors"
+	"net/http"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/errorz"
 	"github.com/rs/zerolog/log"
-	"net/http"
 )
 
 func (h Handler) ListExpressions(w http.ResponseWriter, r *http.Request) {

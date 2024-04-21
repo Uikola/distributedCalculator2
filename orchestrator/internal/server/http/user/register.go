@@ -3,11 +3,12 @@ package user
 import (
 	"encoding/json"
 	"errors"
+	"net/http"
+	"unicode/utf8"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/errorz"
 	"github.com/rs/zerolog/log"
-	"net/http"
-	"unicode/utf8"
 )
 
 func (h Handler) Register(w http.ResponseWriter, r *http.Request) {

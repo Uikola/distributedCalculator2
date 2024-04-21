@@ -3,6 +3,9 @@ package main
 import (
 	"context"
 	"errors"
+	"net/http"
+	"sync"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/db"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/db/repository/postgres"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/server/grpc/server/heartbeat"
@@ -23,8 +26,6 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
-	"net/http"
-	"sync"
 
 	"net"
 	"os"

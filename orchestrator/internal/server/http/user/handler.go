@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 )
 

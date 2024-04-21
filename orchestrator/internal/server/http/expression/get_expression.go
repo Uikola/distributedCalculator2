@@ -3,11 +3,12 @@ package expression
 import (
 	"encoding/json"
 	"errors"
+	"net/http"
+	"strconv"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/errorz"
 	"github.com/go-chi/chi/v5"
 	"github.com/rs/zerolog/log"
-	"net/http"
-	"strconv"
 )
 
 func (h Handler) GetExpression(w http.ResponseWriter, r *http.Request) {

@@ -2,6 +2,7 @@ package user_usecase
 
 import (
 	"context"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/dgrijalva/jwt-go"
 )

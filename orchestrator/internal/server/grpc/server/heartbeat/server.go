@@ -3,6 +3,9 @@ package heartbeat
 import (
 	"context"
 	"fmt"
+	"math/rand/v2"
+	"os"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/db"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/Uikola/distributedCalculator2/orchestrator/pkg/grpc/client/heartbeat"
@@ -11,8 +14,6 @@ import (
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"math/rand/v2"
-	"os"
 )
 
 type cResourceUseCase interface {

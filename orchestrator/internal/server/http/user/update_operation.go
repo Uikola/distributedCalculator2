@@ -2,11 +2,12 @@ package user
 
 import (
 	"encoding/json"
+	"net/http"
+	"strings"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/errorz"
 	"github.com/rs/zerolog/log"
-	"net/http"
-	"strings"
 )
 
 func (h Handler) UpdateOperation(w http.ResponseWriter, r *http.Request) {

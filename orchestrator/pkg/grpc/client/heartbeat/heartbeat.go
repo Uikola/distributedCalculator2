@@ -3,6 +3,8 @@ package heartbeat
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/db/repository/postgres"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/Uikola/distributedCalculator2/orchestrator/pkg/grpc/client/expression"
@@ -11,7 +13,6 @@ import (
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"time"
 )
 
 type cResourceRepository interface {

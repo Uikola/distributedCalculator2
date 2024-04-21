@@ -4,10 +4,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/errorz"
 	"github.com/rs/zerolog/log"
-	"net/http"
 )
 
 func (h Handler) Login(w http.ResponseWriter, r *http.Request) {

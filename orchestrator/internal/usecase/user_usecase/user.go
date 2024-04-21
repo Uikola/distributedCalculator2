@@ -4,11 +4,12 @@ import (
 	"context"
 	"crypto/sha1"
 	"fmt"
+	"os"
+	"time"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/errorz"
 	"github.com/dgrijalva/jwt-go"
-	"os"
-	"time"
 )
 
 func (uc UseCaseImpl) Create(ctx context.Context, request entity.RegisterRequest) error {

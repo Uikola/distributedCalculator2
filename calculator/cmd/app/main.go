@@ -1,6 +1,9 @@
 package main
 
 import (
+	"net"
+	"os"
+
 	"github.com/Uikola/distributedCalculator2/calculator/internal/db"
 	"github.com/Uikola/distributedCalculator2/calculator/internal/db/repository/postgres"
 	"github.com/Uikola/distributedCalculator2/calculator/internal/server/grpc/expression"
@@ -17,8 +20,6 @@ import (
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
-	"net"
-	"os"
 )
 
 func main() {

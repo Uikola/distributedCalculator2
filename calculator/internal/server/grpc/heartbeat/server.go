@@ -2,6 +2,7 @@ package heartbeat
 
 import (
 	"context"
+
 	"github.com/Uikola/distributedCalculator2/proto/heartbeat"
 	"github.com/rs/zerolog/log"
 )

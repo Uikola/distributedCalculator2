@@ -3,6 +3,7 @@ package postgres
 import (
 	"context"
 	"fmt"
+
 	"github.com/Uikola/distributedCalculator2/calculator/internal/entity"
 	"github.com/jmoiron/sqlx"
 )

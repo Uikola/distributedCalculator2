@@ -3,8 +3,9 @@ package expression_usecase
 import (
 	"context"
 	"fmt"
-	"github.com/Uikola/distributedCalculator2/calculator/pkg/polish_notation"
 	"strconv"
+
+	"github.com/Uikola/distributedCalculator2/calculator/pkg/polish_notation"
 )
 
 func (uc UseCaseImpl) Calculate(ctx context.Context, expression string, expressionID uint) error {

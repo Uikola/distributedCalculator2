@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/joho/godotenv"
 	"net/http"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
