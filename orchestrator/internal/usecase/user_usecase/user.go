@@ -22,12 +22,12 @@ func (uc UseCaseImpl) Create(ctx context.Context, request entity.RegisterRequest
 		return errorz.ErrUserAlreadyExists
 	}
 
-	user := entity.User{Login: request.Login, Password: generatePasswordHash(request.Password)}
+	user := entity.User{Login: request.Login, Password: GeneratePasswordHash(request.Password)}
 	return uc.userRepository.Create(ctx, user)
 }
 
 func (uc UseCaseImpl) Login(ctx context.Context, request entity.LoginRequest) (string, error) {
-	user, err := uc.userRepository.GetUser(ctx, request.Login, generatePasswordHash(request.Password))
+	user, err := uc.userRepository.GetUser(ctx, request.Login, GeneratePasswordHash(request.Password))
 	if err != nil {
 		return "", err
 	}
@@ -61,7 +61,7 @@ func (uc UseCaseImpl) ParseToken(ctx context.Context, accessToken string) (uint,
 	return claims.UserId, nil
 }
 
-func generatePasswordHash(password string) string {
+func GeneratePasswordHash(password string) string {
 	hash := sha1.New()
 	hash.Write([]byte(password))
 	return fmt.Sprintf("%x", hash.Sum([]byte(os.Getenv("SALT"))))
