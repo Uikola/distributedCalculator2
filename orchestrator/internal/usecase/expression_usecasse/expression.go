@@ -2,6 +2,7 @@ package expression_usecasse
 
 import (
 	"context"
+	"time"
 
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/errorz"
@@ -10,7 +11,14 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-func (uc UseCaseImpl) AddExpression(ctx context.Context, expr entity.Expression) (uint, error) {
+func (uc UseCaseImpl) AddExpression(ctx context.Context, exp string, userID uint) (uint, error) {
+	expr := entity.Expression{
+		Expression: exp,
+		Status:     entity.InProgress,
+		CreatedAt:  time.Now(),
+		OwnerID:    userID,
+	}
+
 	expr, err := uc.expressionRepository.AddExpression(ctx, expr)
 	if err != nil {
 		return 0, err

@@ -50,7 +50,7 @@ func TestListCResources(t *testing.T) {
 
 			handler := cresource.NewHandler(mockUseCase)
 
-			req, err := http.NewRequest(http.MethodPost, "/api/couriers", nil)
+			req, err := http.NewRequest(http.MethodPost, "/api/cresources", nil)
 			require.NoError(t, err)
 			rec := httptest.NewRecorder()
 

@@ -4,14 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"net/http"
-	"regexp"
-	"time"
-
 	"github.com/Knetic/govaluate"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/errorz"
 	"github.com/rs/zerolog/log"
+	"net/http"
+	"regexp"
 )
 
 func (h Handler) AddExpression(w http.ResponseWriter, r *http.Request) {
@@ -34,14 +32,7 @@ func (h Handler) AddExpression(w http.ResponseWriter, r *http.Request) {
 
 	userID := ctx.Value("userID").(uint)
 
-	expression := entity.Expression{
-		Expression: addExpressionRequest.Expression,
-		Status:     entity.InProgress,
-		CreatedAt:  time.Now(),
-		OwnerID:    userID,
-	}
-
-	id, err := h.expressionUseCase.AddExpression(ctx, expression)
+	id, err := h.expressionUseCase.AddExpression(ctx, addExpressionRequest.Expression, userID)
 	switch {
 	case errors.Is(errorz.ErrNoAvailableResources, err):
 		log.Error().Err(err).Msg("no available comptuing resources")
