@@ -6,6 +6,7 @@ import (
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 )
 
+//go:generate mockgen -source=handler.go -destination=mocks/mock_userUsecase.go -package=mocks userUseCase
 type userUseCase interface {
 	Create(ctx context.Context, request entity.RegisterRequest) error
 	Login(ctx context.Context, request entity.LoginRequest) (string, error)
