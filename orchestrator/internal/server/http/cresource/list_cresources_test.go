@@ -15,23 +15,29 @@ import (
 
 func TestListCResources(t *testing.T) {
 	cases := []struct {
-		name        string
-		expCode     int
-		mockErr     error
-		useCaseResp map[string]string
-		want        map[string]string
-		respErr     bool
+		name    string
+		expCode int
+
+		mockErr  error
+		mockResp map[string]string
+
+		want    map[string]string
+		respErr bool
 	}{
 		{
-			name:        "success",
-			expCode:     http.StatusOK,
-			useCaseResp: map[string]string{"test": "localhost:30005", "test2": "localhost:30060"},
-			want:        map[string]string{"test": "localhost:30005", "test2": "localhost:30060"},
+			name:    "success",
+			expCode: http.StatusOK,
+
+			mockResp: map[string]string{"test": "localhost:30005", "test2": "localhost:30060"},
+
+			want: map[string]string{"test": "localhost:30005", "test2": "localhost:30060"},
 		},
 		{
 			name:    "use case error",
 			expCode: http.StatusInternalServerError,
+
 			mockErr: errors.New("mock err"),
+
 			want:    map[string]string{"reason": "internal error"},
 			respErr: true,
 		},
@@ -45,12 +51,12 @@ func TestListCResources(t *testing.T) {
 			mockUseCase := mocks.NewMockcResourceUseCase(ctrl)
 
 			if !tCase.respErr || tCase.mockErr != nil {
-				mockUseCase.EXPECT().ListCResources(context.Background()).Return(tCase.useCaseResp, tCase.mockErr)
+				mockUseCase.EXPECT().ListCResources(context.Background()).Return(tCase.mockResp, tCase.mockErr)
 			}
 
 			handler := cresource.NewHandler(mockUseCase)
 
-			req, err := http.NewRequest(http.MethodPost, "/api/cresources", nil)
+			req, err := http.NewRequest(http.MethodPost, "/cresources", nil)
 			require.NoError(t, err)
 			rec := httptest.NewRecorder()
 
