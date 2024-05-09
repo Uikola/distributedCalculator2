@@ -16,9 +16,9 @@ func (h Handler) GetExpression(w http.ResponseWriter, r *http.Request) {
 
 	expressionID, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
-		log.Error().Err(err).Msg("invalid task id")
+		log.Error().Err(err).Msg("invalid expression id")
 		w.WriteHeader(http.StatusBadRequest)
-		_ = json.NewEncoder(w).Encode(map[string]string{"reason": "invalid task id"})
+		_ = json.NewEncoder(w).Encode(map[string]string{"reason": "invalid expression id"})
 		return
 	}
 
