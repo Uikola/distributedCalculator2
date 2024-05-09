@@ -6,6 +6,7 @@ import (
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 )
 
+//go:generate mockgen -source=usecase.go -destination=mocks/mock_expressionAndCResourceRepository.go -package=mocks expressionRepository
 type expressionRepository interface {
 	AddExpression(ctx context.Context, expression entity.Expression) (entity.Expression, error)
 	SetErrorStatus(ctx context.Context, id uint) error
