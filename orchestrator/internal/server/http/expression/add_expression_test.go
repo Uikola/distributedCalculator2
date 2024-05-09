@@ -54,19 +54,21 @@ func TestAddExpression(t *testing.T) {
 		input   string
 		expCode int
 
-		mockErr     error
-		useCaseResp uint
+		mockErr   error
+		mockInput string
+		mockResp  uint
 
-		want    string
-		errWant map[string]string
-		respErr bool
+		want      string
+		wantIfErr map[string]string
+		respErr   bool
 	}{
 		{
 			name:    "success",
 			input:   `{"expression": "1 + 1"}`,
 			expCode: http.StatusOK,
 
-			useCaseResp: 1,
+			mockInput: "1 + 1",
+			mockResp:  1,
 
 			want: "1",
 		},
@@ -75,36 +77,38 @@ func TestAddExpression(t *testing.T) {
 			input:   `{"expression": "1 + 1"`,
 			expCode: http.StatusBadRequest,
 
-			errWant: map[string]string{"reason": "bad json"},
-			respErr: true,
+			wantIfErr: map[string]string{"reason": "bad json"},
+			respErr:   true,
 		},
 		{
 			name:    "invalid expression",
 			input:   `{"expression": "test"}`,
 			expCode: http.StatusBadRequest,
 
-			errWant: map[string]string{"reason": "bad request"},
-			respErr: true,
+			wantIfErr: map[string]string{"reason": "bad request"},
+			respErr:   true,
 		},
 		{
 			name:    "no avalible computing resources",
 			input:   `{"expression": "1 + 1"}`,
 			expCode: http.StatusNoContent,
 
-			mockErr: errorz.ErrNoAvailableResources,
+			mockInput: "1 + 1",
+			mockErr:   errorz.ErrNoAvailableResources,
 
-			errWant: map[string]string{"reason": "no available computing resources"},
-			respErr: true,
+			wantIfErr: map[string]string{"reason": "no available computing resources"},
+			respErr:   true,
 		},
 		{
 			name:    "use case error",
 			input:   `{"expression": "1 + 1"}`,
 			expCode: http.StatusInternalServerError,
 
-			mockErr: errors.New("mock err"),
+			mockInput: "1 + 1",
+			mockErr:   errors.New("mock err"),
 
-			errWant: map[string]string{"reason": "internal error"},
-			respErr: true,
+			wantIfErr: map[string]string{"reason": "internal error"},
+			respErr:   true,
 		},
 	}
 
@@ -117,13 +121,12 @@ func TestAddExpression(t *testing.T) {
 
 			handler := expression.NewHandler(mockUseCase)
 
-			req, err := http.NewRequest(http.MethodPost, "/api/calculate", bytes.NewBuffer([]byte(tCase.input)))
+			req, err := http.NewRequest(http.MethodPost, "/calculate", bytes.NewBuffer([]byte(tCase.input)))
 			require.NoError(t, err)
-
 			ctx := context.WithValue(req.Context(), "userID", uint(1))
 
 			if !tCase.respErr || tCase.mockErr != nil {
-				mockUseCase.EXPECT().AddExpression(ctx, "1 + 1", uint(1)).Return(tCase.useCaseResp, tCase.mockErr)
+				mockUseCase.EXPECT().AddExpression(ctx, tCase.mockInput, uint(1)).Return(tCase.mockResp, tCase.mockErr)
 			}
 
 			rec := httptest.NewRecorder()
@@ -137,7 +140,7 @@ func TestAddExpression(t *testing.T) {
 
 			require.Equal(t, tCase.expCode, rec.Result().StatusCode)
 			if tCase.respErr {
-				require.Equal(t, tCase.errWant, got)
+				require.Equal(t, tCase.wantIfErr, got)
 			} else {
 				require.Equal(t, tCase.want, got["expression_id"])
 			}
