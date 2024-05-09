@@ -7,6 +7,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
+//go:generate mockgen -source=usecase.go -destination=mocks/mock_userRepository.go -package=mocks userRepository
 type userRepository interface {
 	Create(ctx context.Context, user entity.User) error
 	Exists(ctx context.Context, login string) (bool, error)
