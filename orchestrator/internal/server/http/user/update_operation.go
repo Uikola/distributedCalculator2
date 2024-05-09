@@ -37,13 +37,14 @@ func (h Handler) UpdateOperation(w http.ResponseWriter, r *http.Request) {
 	updateOperationRequest.Operation = operations[updateOperationRequest.Operation]
 	err := h.userUseCase.UpdateOperation(ctx, updateOperationRequest)
 	if err != nil {
-		log.Error().Err(err).Msg("failed to parse request")
-		w.WriteHeader(http.StatusBadRequest)
-		_ = json.NewEncoder(w).Encode(map[string]string{"reason": "bad request"})
+		log.Error().Err(err).Msg("failed to update operation")
+		w.WriteHeader(http.StatusInternalServerError)
+		_ = json.NewEncoder(w).Encode(map[string]string{"reason": "internal error"})
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
+	_ = json.NewEncoder(w).Encode(map[string]string{"response": "operation updated successfully"})
 }
 
 func ValidateUpdateOperation(request entity.UpdateOperationRequest) error {
