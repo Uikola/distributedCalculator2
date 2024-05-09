@@ -6,6 +6,7 @@ import (
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 )
 
+//go:generate mockgen -source=usecase.go -destination=mocks/mock_cResourceRepository.go -package=mocks cResourceRepository
 type cResourceRepository interface {
 	Create(ctx context.Context, resource entity.CResource) error
 	Exists(ctx context.Context, name, address string) (bool, error)
