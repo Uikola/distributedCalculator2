@@ -179,6 +179,9 @@ func (r CResourceRepository) AssignExpressionToCResource(ctx context.Context, ex
 		return entity.CResource{}, fmt.Errorf("%s:%v", op, err)
 	}
 	tx.Commit()
+	cResource.Occupied = true
+	cResource.Expression = expression.Expression
+
 	return cResource, nil
 }
 
@@ -261,4 +264,20 @@ func (r CResourceRepository) GetByName(ctx context.Context, name string) (entity
 		Occupied:          occupied,
 		OrchestratorAlive: orchestratorAlive,
 	}, nil
+}
+
+func (r CResourceRepository) CleanUp(ctx context.Context) error {
+	const op = "CResourceRepository.CleanUp"
+
+	stmt, err := r.db.PreparexContext(ctx, "DELETE FROM cresources")
+	if err != nil {
+		return fmt.Errorf("%s:%v", op, err)
+	}
+
+	_, err = stmt.ExecContext(ctx)
+	if err != nil {
+		return fmt.Errorf("%s:%v", op, err)
+	}
+
+	return nil
 }
