@@ -4,13 +4,14 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/server/http/user"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/server/http/user/mocks"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
-	"net/http"
-	"net/http/httptest"
-	"testing"
 )
 
 func TestListOperations(t *testing.T) {

@@ -3,13 +3,14 @@ package user_usecase_test
 import (
 	"context"
 	"errors"
+	"testing"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/errorz"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/usecase/user_usecase"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/usecase/user_usecase/mocks"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
-	"testing"
 )
 
 func TestGeneratePasswordHash(t *testing.T) {

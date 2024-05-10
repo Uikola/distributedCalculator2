@@ -2,6 +2,8 @@ package integration
 
 import (
 	"context"
+	"testing"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/db"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/db/repository/postgres"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
@@ -11,7 +13,6 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"testing"
 )
 
 type CResourceRepoTestSuite struct {

@@ -3,13 +3,14 @@ package expression_usecasse_test
 import (
 	"context"
 	"errors"
+	"testing"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/errorz"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/usecase/expression_usecasse"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/usecase/expression_usecasse/mocks"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
-	"testing"
 )
 
 func TestGetExpression(t *testing.T) {

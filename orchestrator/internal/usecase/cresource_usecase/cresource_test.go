@@ -3,12 +3,13 @@ package cresource_usecase_test
 import (
 	"context"
 	"errors"
+	"testing"
+
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/usecase/cresource_usecase"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/usecase/cresource_usecase/mocks"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/mock/gomock"
-	"testing"
 )
 
 func TestListCResources(t *testing.T) {
