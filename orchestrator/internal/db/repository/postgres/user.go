@@ -124,3 +124,19 @@ func (r UserRepository) UpdateOperation(ctx context.Context, userID uint, operat
 
 	return nil
 }
+
+func (r UserRepository) CleanUp(ctx context.Context) error {
+	const op = "UserRepository.CleanUp"
+
+	stmt, err := r.db.PreparexContext(ctx, "DELETE FROM users")
+	if err != nil {
+		return fmt.Errorf("%s:%v", op, err)
+	}
+
+	_, err = stmt.ExecContext(ctx)
+	if err != nil {
+		return fmt.Errorf("%s:%v", op, err)
+	}
+
+	return nil
+}
