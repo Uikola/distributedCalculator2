@@ -195,3 +195,19 @@ func (r ExpressionRepository) GetByCResourceID(ctx context.Context, cResourceID 
 
 	return expression, nil
 }
+
+func (r ExpressionRepository) CleanUp(ctx context.Context) error {
+	const op = "ExpressionRepository.CleanUp"
+
+	stmt, err := r.db.PreparexContext(ctx, "DELETE FROM expressions")
+	if err != nil {
+		return fmt.Errorf("%s:%v", op, err)
+	}
+
+	_, err = stmt.ExecContext(ctx)
+	if err != nil {
+		return fmt.Errorf("%s:%v", op, err)
+	}
+
+	return nil
+}
