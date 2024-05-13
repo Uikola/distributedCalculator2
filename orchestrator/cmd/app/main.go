@@ -32,15 +32,38 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		panic(err)
+	ctx := context.Background()
+	ctx, cancel := signal.NotifyContext(ctx, os.Interrupt)
+	defer cancel()
+
+	if err := godotenv.Load(); err != nil {
+		log.Error().Msg(err.Error())
+		os.Exit(1)
 	}
+
 	log.Logger = zlog.Default(true, "dev", zerolog.InfoLevel)
+	if err := run(ctx); err != nil {
+		log.Error().Msg(err.Error())
+		os.Exit(1)
+	}
+}
 
-	database := db.InitDB(os.Getenv("POSTGRES_CONN"))
+func run(ctx context.Context) error {
+	otelShutdown, err := trace.SetupOTelSDK(ctx, "http://localhost:14268/api/traces", "Orchestrator Service")
+	if err != nil {
+		return err
+	}
 
-	m := CreateMigrate()
+	defer func() {
+		err = errors.Join(err, otelShutdown(context.Background()))
+	}()
+
+	database, err := db.OtelInitPostgres(os.Getenv("POSTGRES_CONN"))
+	if err != nil {
+		return err
+	}
+
+	m := createMigrate()
 	if err = m.Up(); err != nil {
 		log.Error().Err(err).Msg("failed to create users table")
 	}
@@ -65,10 +88,8 @@ func main() {
 	}
 
 	lis, err := net.Listen("tcp", os.Getenv("ORCH_ADDR"))
-
 	if err != nil {
-		log.Error().Msg(err.Error())
-		os.Exit(1)
+		return err
 	}
 
 	grpcServer := grpc.NewServer()
@@ -106,9 +127,11 @@ func main() {
 		}
 	}()
 	wg.Wait()
+
+	return nil
 }
 
-func CreateMigrate() *migrate.Migrate {
+func createMigrate() *migrate.Migrate {
 	m, err := migrate.New(
 		"file://migrations/",
 		os.Getenv("PGX_URL"),

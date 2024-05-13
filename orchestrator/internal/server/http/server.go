@@ -1,6 +1,7 @@
 package http
 
 import (
+	"github.com/riandyrn/otelchi"
 	"net/http"
 
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/server/http/cresource"
@@ -25,7 +26,7 @@ func NewServer(
 		AllowCredentials: false,
 		MaxAge:           300,
 	}))
-
+	router.Use(otelchi.Middleware("orchestrator", otelchi.WithChiRoutes(router)))
 	addRoutes(router, userHandler, expressionHandler, cResourceHandler)
 
 	var handler http.Handler = router

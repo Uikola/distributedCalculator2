@@ -10,3 +10,17 @@ services:
     image: postgres:16.2-alpine3.19
     ports:
       - "5433:5432"
+  jaeger:
+    image: jaegertracing/all-in-one
+    ports:
+      - "14268:14268"
+      - "16686:16686"
+  redis:
+    restart: on-failure
+
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+
+    environment:
+      REDIS_REPLICATION_MODE: master
