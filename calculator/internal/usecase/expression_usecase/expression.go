@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"time"
 
 	"github.com/Uikola/distributedCalculator2/calculator/pkg/polish_notation"
 )
@@ -50,6 +51,11 @@ func (uc UseCaseImpl) Calculate(ctx context.Context, expression string, expressi
 	}
 
 	err = uc.expressionRepository.SetSuccessStatus(ctx, expressionID)
+	if err != nil {
+		return err
+	}
+
+	err = uc.cache.Set(ctx, expression, result, 15*time.Minute)
 	if err != nil {
 		return err
 	}

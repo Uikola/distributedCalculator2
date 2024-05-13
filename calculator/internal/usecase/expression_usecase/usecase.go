@@ -2,8 +2,8 @@ package expression_usecase
 
 import (
 	"context"
-
 	"github.com/Uikola/distributedCalculator2/calculator/internal/entity"
+	"time"
 )
 
 type expressionRepository interface {
@@ -21,12 +21,22 @@ type userRepository interface {
 	GetByID(ctx context.Context, id uint) (entity.User, error)
 }
 
+type cache interface {
+	Set(ctx context.Context, key string, val interface{}, ttl time.Duration) error
+}
+
 type UseCaseImpl struct {
 	expressionRepository expressionRepository
 	cResourceRepository  cResourceRepository
 	userRepository       userRepository
+	cache                cache
 }
 
-func NewUseCaseImpl(expressionRepository expressionRepository, cResourceRepository cResourceRepository, userRepository userRepository) *UseCaseImpl {
-	return &UseCaseImpl{expressionRepository: expressionRepository, cResourceRepository: cResourceRepository, userRepository: userRepository}
+func NewUseCaseImpl(expressionRepository expressionRepository, cResourceRepository cResourceRepository, userRepository userRepository, cache cache) *UseCaseImpl {
+	return &UseCaseImpl{
+		expressionRepository: expressionRepository,
+		cResourceRepository:  cResourceRepository,
+		userRepository:       userRepository,
+		cache:                cache,
+	}
 }

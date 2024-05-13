@@ -1,11 +1,13 @@
 package main
 
 import (
+	"github.com/redis/go-redis/v9"
 	"net"
 	"os"
 
 	"github.com/Uikola/distributedCalculator2/calculator/internal/db"
 	"github.com/Uikola/distributedCalculator2/calculator/internal/db/repository/postgres"
+	r "github.com/Uikola/distributedCalculator2/calculator/internal/db/repository/redis"
 	"github.com/Uikola/distributedCalculator2/calculator/internal/server/grpc/expression"
 	"github.com/Uikola/distributedCalculator2/calculator/internal/server/grpc/heartbeat"
 	"github.com/Uikola/distributedCalculator2/calculator/internal/usecase/expression_usecase"
@@ -33,10 +35,17 @@ func main() {
 	database := db.InitDB(os.Getenv("POSTGRES_CONN"))
 	defer database.Close()
 
+	client := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	cache := r.NewCache(client)
+
 	expressionRepository := postgres.NewExpressionRepository(database)
 	cResourceRepository := postgres.NewCResourceRepository(database)
 	userRepository := postgres.NewUserRepository(database)
-	expressionUseCase := expression_usecase.NewUseCaseImpl(expressionRepository, cResourceRepository, userRepository)
+	expressionUseCase := expression_usecase.NewUseCaseImpl(expressionRepository, cResourceRepository, userRepository, cache)
 
 	name := namegen.New().WithNumberOfWords(1).WithStyle(namegen.Lowercase).Generate()
 
