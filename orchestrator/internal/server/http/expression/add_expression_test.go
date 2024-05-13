@@ -68,7 +68,7 @@ func TestAddExpression(t *testing.T) {
 			input:   `{"expression": "1 + 1"}`,
 			expCode: http.StatusOK,
 
-			mockInput: "1 + 1",
+			mockInput: "1+1",
 			mockResp:  1,
 
 			want: "1",
@@ -94,7 +94,7 @@ func TestAddExpression(t *testing.T) {
 			input:   `{"expression": "1 + 1"}`,
 			expCode: http.StatusNoContent,
 
-			mockInput: "1 + 1",
+			mockInput: "1+1",
 			mockErr:   errorz.ErrNoAvailableResources,
 
 			wantIfErr: map[string]string{"reason": "no available computing resources"},
@@ -105,7 +105,7 @@ func TestAddExpression(t *testing.T) {
 			input:   `{"expression": "1 + 1"}`,
 			expCode: http.StatusInternalServerError,
 
-			mockInput: "1 + 1",
+			mockInput: "1+1",
 			mockErr:   errors.New("mock err"),
 
 			wantIfErr: map[string]string{"reason": "internal error"},

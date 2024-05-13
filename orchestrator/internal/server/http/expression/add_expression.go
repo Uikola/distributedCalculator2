@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"regexp"
+	"strings"
 
 	"github.com/Knetic/govaluate"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/entity"
@@ -33,7 +34,7 @@ func (h Handler) AddExpression(w http.ResponseWriter, r *http.Request) {
 
 	userID := ctx.Value("userID").(uint)
 
-	id, err := h.expressionUseCase.AddExpression(ctx, addExpressionRequest.Expression, userID)
+	id, err := h.expressionUseCase.AddExpression(ctx, strings.ReplaceAll(addExpressionRequest.Expression, " ", ""), userID)
 	switch {
 	case errors.Is(errorz.ErrNoAvailableResources, err):
 		log.Error().Err(err).Msg("no available comptuing resources")

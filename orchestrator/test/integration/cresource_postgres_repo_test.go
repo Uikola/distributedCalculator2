@@ -33,7 +33,7 @@ func (suite *CResourceRepoTestSuite) SetupSuite() {
 	}
 	suite.pgContainer = pgContainer
 
-	database := db.InitDB(suite.pgContainer.ConnStr)
+	database := db.InitPostgres(suite.pgContainer.ConnStr)
 
 	repository := postgres.NewCResourceRepository(database)
 	suite.repository = repository

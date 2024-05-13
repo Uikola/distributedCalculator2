@@ -61,10 +61,11 @@ func TestGetExpression(t *testing.T) {
 
 			mockExpressionRepository := mocks.NewMockexpressionRepository(ctrl)
 			mockCResourceRepository := mocks.NewMockcResourceRepository(ctrl)
+			mockCache := mocks.NewMockcache(ctrl)
 
 			mockExpressionRepository.EXPECT().GetExpressionByID(context.Background(), tCase.expressionID).Return(tCase.mockResp, tCase.mockErr)
 
-			usecase := expression_usecasse.NewUseCaseImpl(mockExpressionRepository, mockCResourceRepository)
+			usecase := expression_usecasse.NewUseCaseImpl(mockExpressionRepository, mockCResourceRepository, mockCache)
 
 			got, gotErr := usecase.GetExpression(context.Background(), tCase.userID, tCase.expressionID)
 
@@ -125,10 +126,11 @@ func TestListExpressions(t *testing.T) {
 
 			mockExpressionRepository := mocks.NewMockexpressionRepository(ctrl)
 			mockCResourceRepository := mocks.NewMockcResourceRepository(ctrl)
+			mockCache := mocks.NewMockcache(ctrl)
 
 			mockExpressionRepository.EXPECT().ListExpressions(context.WithValue(context.Background(), "userID", tCase.userID), tCase.userID).Return(tCase.mockResp, tCase.mockErr)
 
-			usecase := expression_usecasse.NewUseCaseImpl(mockExpressionRepository, mockCResourceRepository)
+			usecase := expression_usecasse.NewUseCaseImpl(mockExpressionRepository, mockCResourceRepository, mockCache)
 
 			got, gotErr := usecase.ListExpressions(context.WithValue(context.Background(), "userID", tCase.userID))
 
@@ -204,10 +206,11 @@ func TestGetResult(t *testing.T) {
 
 			mockExpressionRepository := mocks.NewMockexpressionRepository(ctrl)
 			mockCResourceRepository := mocks.NewMockcResourceRepository(ctrl)
+			mockCache := mocks.NewMockcache(ctrl)
 
 			mockExpressionRepository.EXPECT().GetExpressionByID(context.WithValue(context.Background(), "userID", tCase.userID), tCase.expressionID).Return(tCase.mockResp, tCase.mockErr)
 
-			usecase := expression_usecasse.NewUseCaseImpl(mockExpressionRepository, mockCResourceRepository)
+			usecase := expression_usecasse.NewUseCaseImpl(mockExpressionRepository, mockCResourceRepository, mockCache)
 
 			got, gotErr := usecase.GetResult(context.WithValue(context.Background(), "userID", tCase.userID), tCase.expressionID)
 

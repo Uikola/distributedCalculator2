@@ -36,7 +36,7 @@ func (suite *ExpressionRepoTestSuite) SetupSuite() {
 	}
 	suite.pgContainer = pgContainer
 
-	database := db.InitDB(suite.pgContainer.ConnStr)
+	database := db.InitPostgres(suite.pgContainer.ConnStr)
 
 	repository := postgres.NewExpressionRepository(database)
 	suite.repository = repository
@@ -139,6 +139,20 @@ func (suite *ExpressionRepoTestSuite) TestListExpressions() {
 	got, err := suite.repository.ListExpressions(suite.ctx, 1)
 	require.NoError(t, err)
 	require.Equal(t, want, got)
+}
+
+func (suite *ExpressionRepoTestSuite) TestUpdateResult() {
+	t := suite.T()
+
+	err := suite.repository.UpdateResult(suite.ctx, 1, "2")
+	require.NoError(t, err)
+}
+
+func (suite *ExpressionRepoTestSuite) TestSetSuccessStatus() {
+	t := suite.T()
+
+	err := suite.repository.SetSuccessStatus(suite.ctx, 1)
+	require.NoError(t, err)
 }
 
 func TestExpressionRepoTestSuite(t *testing.T) {

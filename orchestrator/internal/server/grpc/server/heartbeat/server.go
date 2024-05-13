@@ -33,7 +33,11 @@ func NewServer(cResourceUseCase cResourceUseCase) *Server {
 func (s *Server) Register(ctx context.Context, in *pb.RegisterRequest) (*pb.RegisterResponse, error) {
 	log.Info().Msg(fmt.Sprintf("service %s sent register request", in.Name))
 
-	database := db.InitDB(os.Getenv("POSTGRES_CONN"))
+	database, err := db.OtelInitPostgres(os.Getenv("POSTGRES_CONN"))
+	if err != nil {
+		log.Error().Err(err).Msg("failed to connect to the database")
+		os.Exit(1)
+	}
 
 	port := rand.IntN(20000) + 30000
 	addr := fmt.Sprintf("localhost:%d", port)

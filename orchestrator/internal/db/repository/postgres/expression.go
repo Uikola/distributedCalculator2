@@ -196,6 +196,38 @@ func (r ExpressionRepository) GetByCResourceID(ctx context.Context, cResourceID 
 	return expression, nil
 }
 
+func (r ExpressionRepository) UpdateResult(ctx context.Context, expressionID uint, result string) error {
+	const op = "ExpressionRepository.UpdateResult"
+
+	stmt, err := r.db.PreparexContext(ctx, "UPDATE expressions SET result = $1 WHERE id = $2")
+	if err != nil {
+		return fmt.Errorf("%s:%v", op, err)
+	}
+
+	_, err = stmt.ExecContext(ctx, result, expressionID)
+	if err != nil {
+		return fmt.Errorf("%s:%v", op, err)
+	}
+
+	return nil
+}
+
+func (r ExpressionRepository) SetSuccessStatus(ctx context.Context, id uint) error {
+	const op = "ExpressionRepository.SetSuccessStatus"
+
+	stmt, err := r.db.PreparexContext(ctx, "UPDATE expressions SET status = $1, calculated_at = $2 WHERE id = $3")
+	if err != nil {
+		return fmt.Errorf("%s:%v", op, err)
+	}
+
+	_, err = stmt.ExecContext(ctx, entity.OK, time.Now(), id)
+	if err != nil {
+		return fmt.Errorf("%s:%v", op, err)
+	}
+
+	return nil
+}
+
 func (r ExpressionRepository) CleanUp(ctx context.Context) error {
 	const op = "ExpressionRepository.CleanUp"
 

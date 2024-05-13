@@ -36,7 +36,7 @@ func (suite *UserRepoTestSuite) SetupSuite() {
 	}
 	suite.pgContainer = pgContainer
 
-	database := db.InitDB(suite.pgContainer.ConnStr)
+	database := db.InitPostgres(suite.pgContainer.ConnStr)
 
 	repository := postgres.NewUserRepository(database)
 	suite.repository = repository

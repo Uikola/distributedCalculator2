@@ -32,6 +32,17 @@ func (uc UseCaseImpl) AddExpression(ctx context.Context, exp string, userID uint
 		return 0, err
 	}
 
+	result, err := uc.cache.Get(ctx, expr.Expression)
+	if err == nil {
+		if updateErr := uc.expressionRepository.UpdateResult(ctx, expr.ID, result); updateErr != nil {
+			return 0, updateErr
+		}
+		if setErr := uc.expressionRepository.SetSuccessStatus(ctx, expr.ID); setErr != nil {
+			return 0, setErr
+		}
+		return expr.ID, nil
+	}
+
 	err = uc.expressionRepository.UpdateCResource(ctx, expr.ID, cResource.ID)
 	if err != nil {
 		if unlinkErr := uc.cResourceRepository.UnlinkExpressionFromCResource(ctx, expr); unlinkErr != nil {

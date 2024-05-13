@@ -99,6 +99,20 @@ func (mr *MockexpressionRepositoryMockRecorder) SetErrorStatus(ctx, id any) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetErrorStatus", reflect.TypeOf((*MockexpressionRepository)(nil).SetErrorStatus), ctx, id)
 }
 
+// SetSuccessStatus mocks base method.
+func (m *MockexpressionRepository) SetSuccessStatus(ctx context.Context, id uint) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SetSuccessStatus", ctx, id)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// SetSuccessStatus indicates an expected call of SetSuccessStatus.
+func (mr *MockexpressionRepositoryMockRecorder) SetSuccessStatus(ctx, id any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetSuccessStatus", reflect.TypeOf((*MockexpressionRepository)(nil).SetSuccessStatus), ctx, id)
+}
+
 // UpdateCResource mocks base method.
 func (m *MockexpressionRepository) UpdateCResource(ctx context.Context, expressionID, cResourceID uint) error {
 	m.ctrl.T.Helper()
@@ -111,6 +125,20 @@ func (m *MockexpressionRepository) UpdateCResource(ctx context.Context, expressi
 func (mr *MockexpressionRepositoryMockRecorder) UpdateCResource(ctx, expressionID, cResourceID any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateCResource", reflect.TypeOf((*MockexpressionRepository)(nil).UpdateCResource), ctx, expressionID, cResourceID)
+}
+
+// UpdateResult mocks base method.
+func (m *MockexpressionRepository) UpdateResult(ctx context.Context, expressionID uint, result string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateResult", ctx, expressionID, result)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UpdateResult indicates an expected call of UpdateResult.
+func (mr *MockexpressionRepositoryMockRecorder) UpdateResult(ctx, expressionID, result any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateResult", reflect.TypeOf((*MockexpressionRepository)(nil).UpdateResult), ctx, expressionID, result)
 }
 
 // MockcResourceRepository is a mock of cResourceRepository interface.
@@ -163,4 +191,42 @@ func (m *MockcResourceRepository) UnlinkExpressionFromCResource(ctx context.Cont
 func (mr *MockcResourceRepositoryMockRecorder) UnlinkExpressionFromCResource(ctx, expression any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UnlinkExpressionFromCResource", reflect.TypeOf((*MockcResourceRepository)(nil).UnlinkExpressionFromCResource), ctx, expression)
+}
+
+// Mockcache is a mock of cache interface.
+type Mockcache struct {
+	ctrl     *gomock.Controller
+	recorder *MockcacheMockRecorder
+}
+
+// MockcacheMockRecorder is the mock recorder for Mockcache.
+type MockcacheMockRecorder struct {
+	mock *Mockcache
+}
+
+// NewMockcache creates a new mock instance.
+func NewMockcache(ctrl *gomock.Controller) *Mockcache {
+	mock := &Mockcache{ctrl: ctrl}
+	mock.recorder = &MockcacheMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *Mockcache) EXPECT() *MockcacheMockRecorder {
+	return m.recorder
+}
+
+// Get mocks base method.
+func (m *Mockcache) Get(ctx context.Context, key string) (string, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Get", ctx, key)
+	ret0, _ := ret[0].(string)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Get indicates an expected call of Get.
+func (mr *MockcacheMockRecorder) Get(ctx, key any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*Mockcache)(nil).Get), ctx, key)
 }

@@ -3,11 +3,15 @@ package main
 import (
 	"context"
 	"errors"
+	"github.com/Uikola/distributedCalculator2/orchestrator/pkg/trace"
+	"github.com/redis/go-redis/v9"
 	"net/http"
+	"os/signal"
 	"sync"
 
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/db"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/db/repository/postgres"
+	r "github.com/Uikola/distributedCalculator2/orchestrator/internal/db/repository/redis"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/server/grpc/server/heartbeat"
 	server "github.com/Uikola/distributedCalculator2/orchestrator/internal/server/http"
 	"github.com/Uikola/distributedCalculator2/orchestrator/internal/server/http/cresource"
@@ -68,12 +72,19 @@ func run(ctx context.Context) error {
 		log.Error().Err(err).Msg("failed to create users table")
 	}
 
+	client := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	cache := r.NewCache(client)
+
 	cResourceRepo := postgres.NewCResourceRepository(database)
 	expressionRepo := postgres.NewExpressionRepository(database)
 	userRepo := postgres.NewUserRepository(database)
 
 	cResourceUseCase := cresource_usecase.NewUseCaseImpl(cResourceRepo)
-	expressionUseCase := expression_usecasse.NewUseCaseImpl(expressionRepo, cResourceRepo)
+	expressionUseCase := expression_usecasse.NewUseCaseImpl(expressionRepo, cResourceRepo, cache)
 	userUseCase := user_usecase.NewUseCaseImpl(userRepo)
 
 	cResourceHandler := cresource.NewHandler(cResourceUseCase)
